@@ -13,6 +13,7 @@ resource "ibm_pi_network" "public_network" {
 }
 
 module "master" {
+  depends_on = [ibm_pi_network.public_network]
   source = "./instance"
 
   ibmcloud_api_key = var.powervs_api_key
@@ -28,6 +29,7 @@ module "master" {
 }
 
 module "workers" {
+  depends_on = [ibm_pi_network.public_network]
   source = "./instance"
   instance_count = var.workers_count
 
